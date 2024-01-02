@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Main {
 
-    public static Collection<Space> solutions = new HashSet<>();
-
-    public static Space addToSpace(Space s, int count) {
+    public static Collection<Space> addToSpace(Space s, int count) {
+        var solutions = new HashSet<Space>();
         var queue = new ArrayList<Space>();
         queue.add(s);
 
@@ -27,18 +26,18 @@ public class Main {
                 last = now;
             }
 
-            Space space = testCurrent(current, queue, count);
-
-            if (space != null) {
-                return space;
+            var solution = testCurrent(current, queue, count);
+            if (solution != null) {
+                System.out.println(solution);
+                solutions.add(solution);
             }
 
-        } while (true);
+        } while (!queue.isEmpty());
+
+        return solutions;
     }
 
     private static Space testCurrent(Space current, ArrayList<Space> queue, int count) {
-//        Point free = current.firstFreePoint();
-//        List<int[]> all = Brick.all(free);
         int free = current.firstFreeIndex();
         int[][] all = Brick.allFromLookup(free);
 
@@ -46,9 +45,7 @@ public class Main {
             if (allFree(current, points)) {
                 Space newSpace = current.addBrick(points);
                 if (newSpace.count() == count) {
-                    solutions.add(newSpace);
-//                    return newSpace;
-                    return null;
+                    return newSpace;
                 } else {
                     queue.add(newSpace);
                 }
@@ -68,7 +65,7 @@ public class Main {
 
     public static void findSolution() {
         var start = System.nanoTime();
-        Space space = addToSpace(new Space(), 25);
+        var space = addToSpace(new Space(), 25);
         System.out.println("time = " + (System.nanoTime() - start) / 1000_000);
         System.out.println(space);
     }
