@@ -2,18 +2,17 @@ package cz.todr;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 
 public final class Main {
 
-    private static Collection<Space> addToSpace(Space s, int count) {
+    private static Collection<Space> findSolution(Space s, int count) {
         var solutions = new ArrayList<Space>();
         var queue = new ArrayList<Space>();
         queue.add(s);
 
         long last = System.nanoTime();
         int lowestLevelSeen = Integer.MAX_VALUE;
+        int smallestQueue = queue.size();
         long evaluated = 0;
 
         do {
@@ -21,11 +20,13 @@ public final class Main {
 
             evaluated++;
             lowestLevelSeen = Math.min(lowestLevelSeen, current.count());
+            smallestQueue = Math.min(smallestQueue, queue.size());
             long now = System.nanoTime();
             if (now - last > 1_000_000_000L) {
-                System.out.println(queue.size() + " queued, level: " + current.count() + "   " + (evaluated / ((now - last) / 1_000_000)) + " ops/ms, solutions: " + solutions.size());
+                System.out.println(smallestQueue + " queued, level: " + current.count() + "   " + (evaluated / ((now - last) / 1_000_000)) + " ops/ms, solutions: " + solutions.size());
                 evaluated = 0;
                 lowestLevelSeen = current.count();
+                smallestQueue = queue.size();
                 last = now;
             }
 
@@ -63,14 +64,14 @@ public final class Main {
         return true;
     }
 
-    static void findSolution() {
+    static void solve() {
         var start = System.nanoTime();
-        var solutions = addToSpace(new Space(), 25);
+        var solutions = findSolution(new Space(), 25);
         System.out.println("time = " + (System.nanoTime() - start) / 1000_000);
         System.out.println(solutions);
     }
 
     public static void main(String[] args) {
-        findSolution();
+        solve();
     }
 }
