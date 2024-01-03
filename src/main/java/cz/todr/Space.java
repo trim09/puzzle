@@ -28,14 +28,6 @@ record Space(int[] space, int count, int maybeFree) {
         return new Space(clone, newCount, indices[0] + 1);
     }
 
-    public Point firstFreePoint() {
-        for (int i = maybeFree; i < space.length; i++) {
-            if (space[i] == 0)
-                return Point.fromIndex(i);
-        }
-        throw new IllegalStateException();
-    }
-
     public int firstFreeIndex() {
         for (int i = maybeFree; i < space.length; i++) {
             if (space[i] == 0)

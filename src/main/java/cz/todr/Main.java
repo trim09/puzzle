@@ -41,10 +41,7 @@ public final class Main {
     }
 
     private static Space testCurrent(Space current, ArrayList<Space> queue, int count) {
-        int free = current.firstFreeIndex();
-        int[][] all = Brick.allFromLookup(free);
-
-        for (int[] points : all) {
+        for (int[] points : Brick.allFromLookup(current.firstFreeIndex())) {
             if (allFree(current, points)) {
                 Space newSpace = current.addBrick(points);
                 if (newSpace.count() == count) {
@@ -68,9 +65,9 @@ public final class Main {
 
     static void findSolution() {
         var start = System.nanoTime();
-        var space = addToSpace(new Space(), 25);
+        var solutions = addToSpace(new Space(), 25);
         System.out.println("time = " + (System.nanoTime() - start) / 1000_000);
-        System.out.println(space);
+        System.out.println(solutions);
     }
 
     public static void main(String[] args) {

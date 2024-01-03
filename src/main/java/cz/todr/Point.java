@@ -22,8 +22,8 @@ record Point(int x, int y, int z) {
     }
 
     public static int indexAt(int x, int y, int z) {
-//        if (x < 0 || y < 0 || z < 0 || x >= DIMENSION || y >= DIMENSION || z >= DIMENSION)
-//            throw new IllegalStateException();
+        if (x < 0 || y < 0 || z < 0 || x >= DIMENSION || y >= DIMENSION || z >= DIMENSION)
+            throw new IllegalStateException();
         return new Point(x, y, z).index();
     }
 }

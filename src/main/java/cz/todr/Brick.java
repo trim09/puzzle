@@ -11,16 +11,16 @@ final class Brick {
     // [][][] = index -> List<Brick points>
     private static final int[][][] lookup = initLookup();
 
+    public static int[][] allFromLookup(int index) {
+        return lookup[index];
+    }
+
     private static int[][][] initLookup() {
         int[][][] result = new int[DIMENSION_POW_POW][][];
         for (int i = 0; i < result.length; i++) {
             result[i] = all(Point.fromIndex(i)).toArray(int[][]::new);
         }
         return result;
-    }
-
-    public static int[][] allFromLookup(int index) {
-        return lookup[index];
     }
 
     private static List<int[]> all(Point p) {
