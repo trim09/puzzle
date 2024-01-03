@@ -1,6 +1,6 @@
 package cz.todr;
 
-public record Point(int x, int y, int z) {
+record Point(int x, int y, int z) {
 
     public static final int DIMENSION = 5;
     public static final int DIMENSION_POW = DIMENSION * DIMENSION;

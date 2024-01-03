@@ -1,6 +1,6 @@
 package cz.todr;
 
-public enum Rotation {
+enum Rotation {
     XY {
         public int withIncrement(Point p, int mainAxis, int secondaryAxis) {
             return Point.indexAt(p.x() + mainAxis, p.y() + secondaryAxis, p.z());

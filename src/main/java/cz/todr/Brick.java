@@ -6,7 +6,7 @@ import java.util.List;
 import static cz.todr.Point.DIMENSION;
 import static cz.todr.Point.DIMENSION_POW_POW;
 
-public final class Brick {
+final class Brick {
 
     // [][][] = index -> List<Brick points>
     private static final int[][][] lookup = initLookup();

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import static cz.todr.Point.DIMENSION;
 
-public record Space(int[] space, int count, int maybeFree) {
+record Space(int[] space, int count, int maybeFree) {
     public Space() {
         this(new int[DIMENSION * DIMENSION * DIMENSION], 0,0);
     }

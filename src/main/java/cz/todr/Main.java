@@ -5,24 +5,27 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class Main {
+public final class Main {
 
-    public static Collection<Space> addToSpace(Space s, int count) {
-        var solutions = new HashSet<Space>();
+    private static Collection<Space> addToSpace(Space s, int count) {
+        var solutions = new ArrayList<Space>();
         var queue = new ArrayList<Space>();
         queue.add(s);
 
         long last = System.nanoTime();
+        int lowestLevelSeen = Integer.MAX_VALUE;
         long evaluated = 0;
 
         do {
             var current = queue.removeLast();
 
             evaluated++;
+            lowestLevelSeen = Math.min(lowestLevelSeen, current.count());
             long now = System.nanoTime();
             if (now - last > 1_000_000_000L) {
                 System.out.println(queue.size() + " queued, level: " + current.count() + "   " + (evaluated / ((now - last) / 1_000_000)) + " ops/ms, solutions: " + solutions.size());
                 evaluated = 0;
+                lowestLevelSeen = current.count();
                 last = now;
             }
 
@@ -63,7 +66,7 @@ public class Main {
         return true;
     }
 
-    public static void findSolution() {
+    static void findSolution() {
         var start = System.nanoTime();
         var space = addToSpace(new Space(), 25);
         System.out.println("time = " + (System.nanoTime() - start) / 1000_000);
